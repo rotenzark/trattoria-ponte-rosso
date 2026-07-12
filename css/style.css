@@ -1,0 +1,729 @@
+/* ==========================================================================
+   Trattoria Ponte Rosso — Ripa di Porta Ticinese 23, Milano
+   Firma grafica: il ponte di ferro rosso sul Naviglio e l'arancio dell'insegna.
+   Hero con la foto vera dell'ingresso di sera.
+   ========================================================================== */
+
+:root {
+  --crema: #F8F2E7;
+  --crema-scura: #EFE5D2;
+  --bruno: #26150F;
+  --bruno-fondo: #1D100B;
+  --inchiostro: #2E1F17;
+  --grigio: #63544A;
+  --arancio: #DE8A2B;
+  --arancio-chiaro: #EDAA57;
+  --arancio-testo: #2A1608;
+  --rosso: #B23A2E;
+  --acqua: #7FA8B8;
+  --linea: rgba(46, 31, 23, .16);
+  --font-serif: "Lora", "Georgia", serif;
+  --font-testo: "Karla", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- reset ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-testo);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--inchiostro);
+  background: var(--crema);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--rosso);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.hero :focus-visible,
+.sezione-scura :focus-visible,
+.footer :focus-visible {
+  outline-color: var(--arancio-chiaro);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px; left: 1rem;
+  z-index: 2000;
+  padding: .6rem 1rem;
+  background: var(--inchiostro);
+  color: var(--crema);
+  border-radius: 4px;
+  text-decoration: none;
+}
+.skip-link:focus { top: .5rem; }
+
+.mono {
+  font-family: var(--font-testo);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* ---------- bottoni ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35em;
+  padding: .85rem 1.7rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  font-family: var(--font-testo);
+  font-weight: 700;
+  font-size: .95rem;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-small { padding: .5rem 1.15rem; font-size: .85rem; }
+
+.btn-arancio { background: var(--arancio); color: var(--arancio-testo); }
+.btn-arancio:hover { background: var(--arancio-chiaro); }
+
+.btn-velo {
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, .55);
+}
+.btn-velo:hover { border-color: #fff; background: rgba(255, 255, 255, .2); }
+
+.btn-quieto-chiaro {
+  background: transparent;
+  color: var(--crema);
+  border-color: rgba(248, 242, 231, .45);
+}
+.btn-quieto-chiaro:hover { border-color: var(--crema); }
+
+/* ---------- intro "il ponte" ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--crema);
+  transition: transform .8s cubic-bezier(.65, 0, .35, 1);
+}
+.intro--via { transform: translateX(-104%); }
+
+.intro-scena { text-align: center; }
+
+.intro-ponte {
+  width: clamp(200px, 40vw, 300px);
+  height: auto;
+  margin: 0 auto;
+}
+
+.p-arco {
+  stroke: var(--rosso);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: traccia 1s ease-out .15s forwards;
+}
+.p-impalcato {
+  stroke: var(--rosso);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  animation: traccia .7s ease-out forwards;
+}
+.p-tiranti line {
+  stroke: var(--rosso);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: traccia .35s ease-out forwards;
+}
+.p-tiranti line:nth-child(1) { animation-delay: .9s; }
+.p-tiranti line:nth-child(2) { animation-delay: 1s; }
+.p-tiranti line:nth-child(3) { animation-delay: 1.1s; }
+.p-tiranti line:nth-child(4) { animation-delay: 1.2s; }
+.p-tiranti line:nth-child(5) { animation-delay: 1.3s; }
+.p-acqua {
+  stroke: var(--acqua);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: .8;
+  stroke-dasharray: 250;
+  stroke-dashoffset: 250;
+  animation: traccia 1.2s ease-out .4s forwards;
+}
+
+@keyframes traccia { to { stroke-dashoffset: 0; } }
+
+.intro-nome {
+  margin-top: 1.1rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2.2rem, 7vw, 3.4rem);
+  color: var(--inchiostro);
+  opacity: 0;
+  animation: sale .5s ease-out 1.35s forwards;
+}
+
+.intro-riga {
+  margin-top: .5rem;
+  font-weight: 700;
+  font-size: .68rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--rosso);
+  opacity: 0;
+  animation: sale .5s ease-out 1.55s forwards;
+}
+
+@keyframes sale {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.intro-lock { overflow: hidden; }
+
+/* ---------- topbar ---------- */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .65rem clamp(1rem, 3vw, 1.6rem);
+  background: rgba(248, 242, 231, .93);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--linea);
+}
+
+.wordmark {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.25rem;
+  text-decoration: none;
+  color: var(--rosso);
+  white-space: nowrap;
+}
+
+.nav { margin-left: auto; }
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .9rem;
+  background: transparent;
+  border: 1px solid rgba(46, 31, 23, .35);
+  border-radius: 6px;
+  font-family: var(--font-testo);
+  font-weight: 700;
+  font-size: .85rem;
+  color: var(--inchiostro);
+  cursor: pointer;
+}
+
+.nav-toggle-bar {
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  box-shadow: 0 5px 0 currentColor, 0 -5px 0 currentColor;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: clamp(.9rem, 2vw, 1.5rem);
+}
+
+.nav-menu a {
+  font-size: .92rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--inchiostro);
+  padding: .3rem 0;
+  border-bottom: 2px solid transparent;
+}
+.nav-menu a:hover { border-bottom-color: var(--arancio); }
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .82rem;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  padding: .25rem .3rem;
+  font-family: var(--font-testo);
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--grigio);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.lang-btn.is-active {
+  color: var(--inchiostro);
+  border-bottom-color: var(--rosso);
+}
+.lang-sep { color: rgba(46, 31, 23, .4); }
+
+@media (max-width: 920px) {
+  .nav-toggle { display: inline-flex; }
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: .6rem 1.2rem 1rem;
+    background: var(--crema);
+    border-bottom: 1px solid var(--linea);
+    box-shadow: 0 14px 28px rgba(46, 31, 23, .12);
+  }
+  .nav.is-open .nav-menu { display: flex; }
+  .nav-menu a {
+    padding: .7rem .2rem;
+    border-bottom: 1px solid rgba(46, 31, 23, .08);
+  }
+  .nav-menu li:last-child a { border-bottom-color: transparent; }
+}
+
+@media (max-width: 560px) {
+  .wordmark { font-size: 1.05rem; }
+  .topbar { gap: .6rem; }
+}
+
+/* ---------- hero con foto ---------- */
+
+.hero {
+  position: relative;
+  min-height: 88vh;
+  min-height: 88svh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--bruno);
+}
+
+.hero-sfondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 32%;
+}
+
+.hero-velo {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(29, 16, 11, .92) 0%, rgba(29, 16, 11, .35) 55%, rgba(29, 16, 11, .28) 100%),
+    linear-gradient(to right, rgba(29, 16, 11, .66) 0%, rgba(29, 16, 11, .22) 60%, rgba(29, 16, 11, .1) 100%);
+}
+
+.hero-contenuto {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(7rem, 16vh, 10rem) 1.5rem clamp(3rem, 7vh, 4.5rem);
+  color: #fff;
+}
+
+.eyebrow {
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--arancio-chiaro);
+}
+
+.hero-nome {
+  margin-top: 1rem;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(3rem, 9.5vw, 5.6rem);
+  line-height: 1.02;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(29, 16, 11, .5);
+}
+
+.hero-claim {
+  margin-top: 1.4rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.3rem, 3.2vw, 1.75rem);
+  color: var(--arancio-chiaro);
+}
+
+.hero-lead {
+  max-width: 56ch;
+  margin-top: .8rem;
+  font-size: 1.02rem;
+  color: rgba(255, 255, 255, .9);
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .9rem;
+  margin-top: 1.8rem;
+}
+
+.hero-badge {
+  margin-top: 1.6rem;
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--arancio-chiaro);
+}
+
+/* ---------- fregio a onda (il naviglio) ---------- */
+
+.onda {
+  height: 26px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='14'%3E%3Cpath d='M0 8 q7.5 -6 15 0 t15 0 t15 0 t15 0' fill='none' stroke='%237FA8B8' stroke-width='2' stroke-linecap='round' stroke-opacity='.7'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+/* ---------- sezioni ---------- */
+
+.sezione {
+  padding: clamp(3.5rem, 8vw, 5.5rem) 1.5rem;
+}
+
+.sezione-calda { background: var(--crema-scura); }
+
+.sezione-titolo {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.12;
+  text-align: center;
+}
+
+.sezione-sub {
+  margin-top: .5rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  text-align: center;
+  color: var(--rosso);
+}
+
+.sezione-sub-chiara { color: var(--arancio-chiaro); }
+
+/* ---------- la memoria ---------- */
+
+.memoria-testo {
+  max-width: 62ch;
+  margin: 2.4rem auto 0;
+  display: grid;
+  gap: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.memoria-numeri {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.memoria-numeri li {
+  display: grid;
+  gap: .2rem;
+  min-width: 8rem;
+}
+
+.numero {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--rosso);
+}
+
+.numero-cosa {
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--grigio);
+  max-width: 22ch;
+}
+
+/* ---------- il menù e la cantina ---------- */
+
+.menu-colonne {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem clamp(2.5rem, 6vw, 5rem);
+  max-width: 940px;
+  margin: 2.8rem auto 0;
+}
+
+.cat-nome {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--rosso);
+  margin-bottom: .9rem;
+  padding-bottom: .4rem;
+  border-bottom: 2px solid var(--arancio);
+}
+
+.cat-nome-dopo { margin-top: 2.2rem; }
+
+.voci { display: grid; gap: .65rem; }
+
+.voce {
+  display: flex;
+  align-items: baseline;
+  gap: .5em;
+  font-size: .98rem;
+}
+
+.voce-punti {
+  flex: 1;
+  min-width: 1.5em;
+  border-bottom: 1px dotted rgba(46, 31, 23, .32);
+  transform: translateY(-4px);
+}
+
+.voce-prezzo {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.menu-nota {
+  margin-top: 2.6rem;
+  text-align: center;
+  color: var(--grigio);
+}
+
+@media (max-width: 760px) {
+  .menu-colonne { grid-template-columns: 1fr; }
+}
+
+/* ---------- orari e dove ---------- */
+
+.sezione-scura {
+  background: var(--bruno);
+  color: var(--crema);
+}
+
+.sezione-scura .sezione-titolo { color: var(--crema); }
+
+.orari-dove {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 3.5rem);
+  max-width: 900px;
+  margin: 2.8rem auto 0;
+  align-items: start;
+}
+
+.orari-tabella {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .98rem;
+}
+
+.orari-tabella th,
+.orari-tabella td {
+  padding: .8rem .2rem;
+  border-bottom: 1px solid rgba(248, 242, 231, .18);
+  text-align: left;
+  font-weight: 400;
+}
+
+.orari-tabella td { text-align: right; font-variant-numeric: tabular-nums; }
+
+.dove-indirizzo {
+  font-family: var(--font-serif);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.35rem;
+  line-height: 1.4;
+}
+
+.dove-metro {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .9rem;
+  font-size: .92rem;
+  color: rgba(248, 242, 231, .85);
+}
+
+.metro-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #2C9A5B;
+  flex: none;
+}
+
+.dove-azioni {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .8rem;
+  margin-top: 1.6rem;
+}
+
+.dove-note {
+  margin-top: 1.4rem;
+  font-size: .88rem;
+  color: rgba(248, 242, 231, .75);
+}
+
+@media (max-width: 760px) {
+  .orari-dove { grid-template-columns: 1fr; max-width: 480px; }
+}
+
+/* ---------- footer ---------- */
+
+.footer {
+  position: relative;
+  padding: 3.5rem 1.5rem 2.5rem;
+  background: var(--bruno-fondo);
+  color: var(--crema);
+  overflow: hidden;
+}
+
+.footer-wordmark {
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(4rem, 13vw, 8.5rem);
+  white-space: nowrap;
+  color: rgba(222, 138, 43, .08);
+  pointer-events: none;
+  user-select: none;
+}
+
+.footer-cols {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-cols h3 {
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--arancio-chiaro);
+  margin-bottom: .7rem;
+}
+
+.footer-cols p {
+  font-size: .95rem;
+  color: rgba(248, 242, 231, .88);
+  margin-bottom: .3rem;
+}
+
+.footer-cols a {
+  color: var(--crema);
+  text-decoration-color: rgba(248, 242, 231, .4);
+  text-underline-offset: 3px;
+}
+.footer-cols a:hover { text-decoration-color: var(--crema); }
+
+.footer-legal {
+  position: relative;
+  max-width: 900px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(248, 242, 231, .16);
+  font-size: .8rem;
+  color: rgba(248, 242, 231, .6);
+}
+
+@media (max-width: 760px) {
+  .footer-cols { grid-template-columns: 1fr; gap: 1.6rem; }
+}
+
+/* ---------- reveal on scroll ---------- */
+/* Lo stato nascosto esiste solo se il JS è partito (classe .js sul root)
+   e solo se l'utente non preferisce il movimento ridotto. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .btn:hover { transform: none; transition: none; }
+  .intro { display: none; }
+}
